@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+      <style>
+         body {
+         background-image: url("images/background.jpg");
+         background: stretch;
+         }
+
+         .jumbotron {
+            background: none;
+            padding-right: 100px;
+            height: 200px;
+            text-align: center;
+            color: blue;
+         }
+
+         .character {
+         margin-top: 500px;
+         border: 7px solid green;
+         }
+         .nameplate {
+         color: red;
+         font-size: 24px;
+         font-weight: 800;
+         border: 2px solid black;
+         }
+         .attributes {
+         color: green;
+         font-size: 24px;
+         font-weight: 800;
+         border: 2px solid black;
+         }
+         .battle-stage {
+         width: auto;
+         height: 300px;
+         border: 2px solid black;
+         }
+         .playfield {
+         overflow-wrap: auto; 
+         background-image: url("images/playfieldTerrain.png");
+         background-repeat: no-repeat;
+         z-index: 2;
+         margin-top: -100px;
+         padding-left: 20px;
+         width: 1200px;
+         height: 300px;
+         }
+
+         /*        actually looking good stuff goes below here*/
+         .stats {
+         padding-top: 230px;
+         width: 1000px;
+         }
+         .attacker {
+         padding-top: 100px;
+         }
+         .image-box {
+         background: white;
+         color: white;
+         width: 100px;
+         height: 100px;
+         line-height: 30px;
+         border: 2px solid black;
+         border-radius: 4px;
+         margin: 5px;
+         }
+         .name-box0 {
+         background: black;
+         color: white;
+         width: 500px;
+         height: 50px;
+         font-size: 20px;
+         font-weight: 700;
+         line-height: 40px;
+         border: 2px solid #3fd8ff;
+         border-radius: 4px;
+         margin: 5px;
+         }
+
+         .name-box1 {
+         background: black;
+         color: white;
+         width: 500px;
+         height: 50px;
+         font-size: 20px;
+         font-weight: 700;
+         line-height: 40px;
+         border: 2px solid #ff3ffb;
+         border-radius: 4px;
+         margin: 5px;
+         }
+
+         .health-box0 {
+         background: black;
+         color: red;
+         font-size: 20px;
+         font-weight: 700;
+         width: 400px;
+         height: 30px;
+         line-height: 25px;
+         border: 2px solid #3fd8ff;
+         border-radius: 4px;
+         margin: 5px;
+         }
+
+         .health-box1 {
+         background: black;
+         color: red;
+         font-size: 20px;
+         font-weight: 700;
+         width: 400px;
+         height: 30px;
+         line-height: 25px;
+         border: 2px solid #ff3ffb;
+         border-radius: 4px;
+         margin: 5px;
+         }
+
+         .attack-box0 {
+         background: black;
+         color: lightgreen;
+         font-size: 20px;
+         font-weight: 700;
+         width: 400px;
+         height: 30px;
+         line-height: 25px;
+         border: 2px solid #3fd8ff;
+         border-radius: 4px;
+         margin: 5px;
+         }
+
+         .attack-box1 {
+         background: black;
+         color: lightgreen;
+         font-size: 20px;
+         font-weight: 700;
+         width: 400px;
+         height: 30px;
+         line-height: 25px;
+         border: 2px solid #ff3ffb;
+         border-radius: 4px;
+         margin: 5px;
+         }
+
+         .defense-box0 {
+         background: black;
+         color: yellow;
+         font-size: 20px;
+         font-weight: 700;
+         width: 400px;
+         height: 30px;
+         line-height: 25px;
+         border: 2px solid #3fd8ff;
+         border-radius: 4px;
+         margin: 5px;
+         }
+
+         .defense-box1 {
+         background: black;
+         color: yellow;
+         font-size: 20px;
+         font-weight: 700;
+         width: 400px;
+         height: 30px;
+         line-height: 25px;
+         border: 2px solid #ff3ffb;
+         border-radius: 4px;
+         margin: 5px;
+         }
+
+         .ability-box0 {
+         background: #a3ecff;
+         font-size: 20px;
+         font-weight: 800;
+         color: #00718e;
+         width: 50px;
+         height: 90px;
+         line-height: 30px;
+         border: 2px solid #3fd8ff;
+         border-radius: 4px;
+         margin: 5px;
+         }
+
+         .ability-box1 {
+         background: #ffbcfd;
+         font-size: 20px;
+         font-weight: 800;
+         color: #841f82;
+         width: 50px;
+         height: 90px;
+         line-height: 30px;
+         border: 2px solid #ff3ffb;
+         border-radius: 4px;
+         margin: 5px;
+         }
+
+         #ally0 {
+         /*LANCE STORMWAKE*/
+         font-size: 0px;
+         background-image: url("images/lance_stormwake.png");
+         background-repeat: no-repeat;
+         color: red;
+         width: 100px;
+         height: 200px;
+         position: relative;
+         top: -166px;
+         left: 195px;
+         }
+
+         #ally1 {
+         /*ELIZABETH VOLTAIRA*/
+         font-size: 0px;
+         background-image: url("images/elizabeth_voltaira.png");
+         background-repeat: no-repeat;
+         color: red;
+         width: 100px;
+         height: 200px;
+         position: relative;
+         top: 8px;
+         left: 17px;
+         }
+
+         #ally2 {
+         /*MERRICK BLADESONG*/
+         font-size: 0px;
+         background-image: url("images/merrick_bladesong.png");
+         background-repeat: no-repeat;
+         color: red;
+         width: 100px;
+         height: 200px;
+         position: relative;
+         top: -106px;
+         left: 104px;
+         }
+
+         #ally3 {
+         /*BALFOR KIN*/
+         font-size: 0px;
+         background-image: url("images/balfor_kin.png");
+         background-repeat: no-repeat;
+         color: red;
+         font-weight: 700;
+         width: 100px;
+         height: 200px;
+         position: relative;
+         top: -106px;
+         left: 37px;
+         }
+
+         #enemy0 {
+         /*GREYSON TERUS*/
+         font-size: 0px;
+         background-image: url("images/greyson_terus.png");
+         background-repeat: no-repeat;
+         color: green;
+         font-weight: 700;
+         width: 100px;
+         height: 200px;
+         position: relative;
+         top: -1px;
+         left: -326px;
+         }
+
+         #enemy1 {
+         /*TALIA D'JURO*/
+         font-size: 0px;
+         background-image: url("images/talia_djuro.png");
+         background-repeat: no-repeat;
+         color: green;
+         font-weight: 700;
+         width: 100px;
+         height: 200px;
+         position: relative;
+         top: -166px;
+         left: -120px;
+         }
+
+         #enemy2 {
+         /*FENWRIGHT POSAL*/
+         font-size: 0px;
+         background-image: url("images/fenwright_posal.png");
+         background-repeat: no-repeat;
+         color: green;
+         font-weight: 700;
+         width: 100px;
+         height: 200px;
+         position: relative;
+         top: -5px;
+         left: -200px;
+         }
+
+         #enemy3 {
+         /*DUVAL CHOTI*/
+         font-size: 0px;
+         background-image: url("images/duval_choti.png");
+         background-repeat: no-repeat;
+         color: green;
+         font-weight: 700;
+         width: 100px;
+         height: 200px;
+         position: relative;
+         top: -18px;
+         left: -995px;
+         }
+
+      </style>
+   </head>
+   <body>
+      <main class="container">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-3">Galactic Conquerors</h1>
+                    <p class="lead">Here you will take control of one of two factions, you are the Holy Knights against The Forsaken.</p>
+            </div>
+        </div>
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <div class="row playfield">
+         <section class="col" id="ally0">
+            <p id="nameA0"></p>
+            <p id="healthA0"></p>
+            <p id="attackA0"></p>
+            <p id="defenseA0"></p>
+         </section>
+         <section class="col" id="ally1">
+            <p id="nameA1"></p>
+            <p id="healthA1"></p>
+            <p id="attackA1"></p>
+            <p id="defenseA1"></p>
+         </section>
+         <section class="col" id="ally2">
+            <p id="nameA2"></p>
+            <p id="healthA2"></p>
+            <p id="attackA2"></p>
+            <p id="defenseA2"></p>
+         </section>
+         <section class="col" id="ally3">
+            <p id="nameA3"></p>
+            <p id="healthA3"></p>
+            <p id="attackA3"></p>
+            <p id="defenseA3"></p>
+         </section>
+         <section class="col" id="enemy0">
+            <p id="nameE0"></p>
+            <p id="healthE0"></p>
+            <p id="attackE0"></p>
+            <p id="defenseE0"></p>
+         </section>
+         <section class="col" id="enemy1">
+            <p id="nameE1"></p>
+            <p id="healthE1"></p>
+            <p id="attackE1"></p>
+            <p id="defenseE1"></p>
+         </section>
+         <section class="col" id="enemy2">
+            <p id="nameE2"></p>
+            <p id="healthE2"></p>
+            <p id="attackE2"></p>
+            <p id="defenseE2"></p>
+         </section>
+         <section class="col" id="enemy3">
+            <p id="nameE3"></p>
+            <p id="healthE3"></p>
+            <p id="attackE3"></p>
+            <p id="defenseE3"></p>
+         </section>
+         <div class="row info attacker">
+            <div class="col">
+               <div class="row">
+                  <div class="col name-box0" id="p1_name"></div>
+               </div>
+               <div class="row">
+                  <div class="col health-box0" id="p1_health"></div>
+                  <div class="col attack-box0" id="p1_attack"></div>
+                  <div class="col defense-box0" id="p1_defense"></div>
+               </div>
+            </div>
+            <div class="col">
+               <div class="row">
+                  <button class="col-sm-2 ability-box0" id="ability0"></button>
+                  <button class="col-sm-2 ability-box0" id="ability1"></button>
+                  <button class="col-sm-2 ability-box0" id="ability2"></button>
+                  <button class="col-sm-2 ability-box0" id="ability3"></button>
+               </div>
+            </div>
+         </div>
+
+        <hr>
+
+         <div class="row info defender">
+            <div class="col">
+               <div class="row">
+                  <div class="col name-box1" id="p2_name"></div>
+               </div>
+               <div class="row">
+                  <div class="col health-box1" id="p2_health"></div>
+                  <div class="col attack-box1" id="p2_attack"></div>
+                  <div class="col defense-box1" id="p2_defense"></div>
+               </div>
+            </div>
+            <div class="col">
+               <div class="row">
+                  <button class="col-sm-2 ability-box1" id="ability0"></button>
+                  <button class="col-sm-2 ability-box1" id="ability1"></button>
+                  <button class="col-sm-2 ability-box1" id="ability2"></button>
+                  <button class="col-sm-2 ability-box1" id="ability3"></button>
+               </div>
+            </div>
+         </div>
+      </main>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script>
+
+         var health = 0;
+         var attack = 0;
+         var defense = 0;
+         
+         var turn = 0;
+         var energy = 0;
+         
+         var isWin = 0;
+         var isLoss = 0;
+         
+         var player1 = {};
+         var player2 = {};
+
+         var p1Selected = null;
+         var p2Selected = null;
+         
+         mainAttack = player1.attack;
+         boost = (player1.attack * 2);
+         boosted = (player1.attack * 40);
+         
+         $(document).ready(function() {
+        
+             function setPlayer1(x) {
+                 player1 = allyArray[x];
+                 p1Selected = x;
+                 alert("You have selected " + player1.name);
+                 document.getElementById("p1_name").innerHTML = player1.name;
+                 document.getElementById("p1_health").innerHTML = "Health: " + player1.health;
+                 document.getElementById("p1_attack").innerHTML = "Attack: " + player1.attack;
+                 document.getElementById("p1_defense").innerHTML = "Defense: " + player1.defense;
+             }
+             
+             function checkHealthPlayer1(pawn) {
+                if (pawn) {
+                    if (pawn.health <= 0) {
+                        // pawn is dead
+                        var element =  document.getElementById(pawn.id);
+                        $(element).hide();
+                        p1Selected = null;
+                        document.getElementById("p1_health").innerHTML = "Dead";
+                        alert("You have been slain...please try again!");
+                    }
+                }
+             }
+ 
+             function checkHealthPlayer2(pawn) {
+                if (pawn) {
+                    if (pawn.health <= 0) {
+                        // pawn is dead
+                        var element =  document.getElementById(pawn.id);
+                        $(element).hide();
+                        p2Selected = null;
+                        document.getElementById("p2_health").innerHTML = "Dead";
+                        alert("You have slain " + player2.name + ".");
+                    }
+                }
+             }
+         
+             // pick your player (which will store those values in a var player1)
+             $("#ally0").click(function() {
+                 setPlayer1(0);
+                 console.log(player1);
+         
+                 document.getElementById("ability0").innerHTML = player1.ability0Name;
+         
+                 document.getElementById("ability1").innerHTML = player1.ability1Name;
+         
+                 document.getElementById("ability2").innerHTML = player1.ability2Name;
+
+                 document.getElementById("ability3").innerHTML = player1.ability3Name;  
+             });
+         
+             $("#ally1").click(function() {
+                 setPlayer1(1);
+             });
+         
+             $("#ally2").click(function() {
+                 setPlayer1(2);
+             });
+         
+             $("#ally3").click(function() {
+                 setPlayer1(3);
+             });
+         
+             function setPlayer2(x) {
+                 player2 = enemyArray[x];
+                 p2Selected = x;
+                 alert("You have selected " + player2.name);
+                 document.getElementById("p2_name").innerHTML = player2.name;
+                 document.getElementById("p2_health").innerHTML = "Health: " + player2.health;
+                 document.getElementById("p2_attack").innerHTML = "Attack: " + player2.attack;
+                 document.getElementById("p2_defense").innerHTML = "Defense: " + player2.defense;
+             }
+         
+             // pick your player (which will store those values in a var player1)
+             $("#enemy0").click(function() {
+                 setPlayer2(0);
+             });
+         
+             $("#enemy1").click(function() {
+                 setPlayer2(1);
+             });
+         
+             $("#enemy2").click(function() {
+                 setPlayer2(2);
+             });
+         
+             $("#enemy3").click(function() {
+                 setPlayer2(3);
+             });
+         
+             var lance = {
+                 id: "ally0",
+                 name: "Lance Stormwake",
+                 alliance: "Holy Trinity",
+                 class: "Knight",
+                 age: 39,
+                 race: "Human",
+                 health: 300,
+                 attack: 25,
+                 defense: 75,
+                 ability0Name: "Main Attack",
+                 ability1Name: "Blessed Sword",
+                 ability2Name: "Heal",
+                 ability3Name: "Siphon"
+                 
+             };
+         
+             var elizabeth = {
+                 id: "ally1",
+                 name: "Elizabeth Voltaira",
+                 alliance: "Holy Trinity",
+                 class: "Cleric",
+                 age: 402,
+                 race: "High Elf",
+                 health: 120,
+                 attack: 150,
+                 defense: 130,
+                 ability0Name: "Main Attack",
+                 ability1Name: "Blessed Sword",
+                 ability2Name: "Heal",
+                 ability3Name: "Siphon"
+             };
+         
+             var merrick = {
+                 id: "ally2",
+                 name: "Merrick Bladesong",
+                 alliance: "Holy Trinity",
+                 class: "Bard",
+                 age: 25,
+                 race: "Dwarf",
+                 health: 120,
+                 attack: 250,
+                 defense: 30,
+                 ability0Name: "Main Attack",
+                 ability1Name: "Blessed Sword",
+                 ability2Name: "Heal",
+                 ability3Name: "Siphon"
+             };
+         
+             var balfor = {
+                 id: "ally3",
+                 name: "Balfor Kin",
+                 alliance: "Holy Trinity",
+                 class: "Warrior",
+                 age: 25,
+                 race: "Giant",
+                 health: 350,
+                 attack: 30,
+                 defense: 20,
+                 ability0Name: "Main Attack",
+                 ability1Name: "Blessed Sword",
+                 ability2Name: "Heal",
+                 ability3Name: "Siphon",
+             };
+         
+             var greyson = {
+                 id: "enemy0",
+                 name: "Greyson Terus",
+                 alliance: "The Forsaken",
+                 class: "Necromancer",
+                 race: "Vampire",
+                 health: 50,
+                 attack: 100,
+                 defense: 250
+             };
+         
+             var talia = {
+                 id: "enemy1",
+                 name: "Talia D'Juro",
+                 alliance: "The Forsaken",
+                 class: "Assassin",
+                 age: 271,
+                 race: "Dark Elf",
+                 health: 100,
+                 attack: 225,
+                 defense: 75
+             };
+         
+             var fenwright = {
+                 id: "enemy2",
+                 name: "Fenwright Posal",
+                 alliance: "The Forsaken",
+                 class: "Dread Knight",
+                 age: 1092,
+                 race: "Demon",
+                 health: 200,
+                 attack: 100,
+                 defense: 100
+             };
+         
+             var duval = {
+                 id: "enemy3",
+                 name: "Duval Choti",
+                 alliance: "The Forsaken",
+                 class: "Wizard",
+                 age: 271,
+                 race: "Elf",
+                 health: 60,
+                 attack: 330,
+                 defense: 10
+             };
+         
+             // ATTACK SEQUENCE
+             $("#ability0").click(function() {
+                 if (p1Selected === null || p2Selected === null) {
+                     return;
+                 }
+                 var mainAttack = (player1.attack - player2.defense);
+                 player2.health = (player2.health - mainAttack);
+                 document.getElementById("p2_health").innerHTML = "Health: " + player2.health;
+                 console.log("You have done " + mainAttack + " damage!");
+         
+                 var counter = (player2.attack - player1.defense);
+                 player1.health = player1.health - counter;
+                 document.getElementById("p1_health").innerHTML = "Health: " + player1.health;
+                 console.log("Your opponent has done " + counter + " damage to you!");
+                 checkHealthPlayer2(player2);
+                 checkHealthPlayer1(player1);
+             });
+         
+              $("#ability1").click(function(){
+                 if (p1Selected === null || p2Selected === null) {
+                     return;
+                 }
+                 var boosted = Math.floor(player1.attack * 1.5);
+                 player1.attack = player1.attack + boosted;
+                 console.log("You have boosted your attack power by 2x to " + boosted + "damage!");
+                 document.getElementById("p1_attack").innerHTML = "Attack: " + player1.attack;
+                 checkHealthPlayer2(player2);
+                 checkHealthPlayer1(player1);
+             });
+         
+             $("#ability2").click(function(){
+                 if (p1Selected === null || p2Selected === null) {
+                     return;
+                 }
+                 var startHealth = player1.health;
+                 var heal = player1.health * 0.25;
+                 player1.health = player1.health + 100 + Math.floor(heal);
+                 console.log("You have healed yourself for " + heal + " health.")
+                 document.getElementById("p1_health").innerHTML = "Health: " + player1.health;
+                 checkHealthPlayer2(player2);
+                 checkHealthPlayer1(player1);
+             });
+         
+             $("#ability3").click(function(){
+                if (p1Selected === null || p2Selected === null) {
+                     return;
+                 }
+             	var damage = player1.attack;
+                player2.health -= damage;
+                player1.health += Math.floor(damage / 2);
+                var siphon = Math.floor(damage / 2);
+                document.getElementById("p1_health").innerHTML = "Health: " + player1.health;
+                document.getElementById("p2_health").innerHTML = "Health: " + player2.health;
+             	console.log("You have healed yourself for " + siphon + " health.");
+                console.log("You have dealt " + damage + " damage to the enemy.");
+                checkHealthPlayer2(player2);
+                checkHealthPlayer1(player1);
+                
+             });
+         
+             $("#ability4").click(function(){
+                if (p1Selected === null || p2Selected === null) {
+                     return;
+                 }
+             	var dot = (player1.attack + (player1.attack * 0.25));
+             	player2.health = player2.health + dot;
+             	console.log("You have applied a " + dot + " to the enemy.")
+             	document.getElementById("p2_health").innerHTML = player2.health;
+                checkHealthPlayer2(player2);
+                checkHealthPlayer1(player1);
+             });
+
+             $("#ability5").click(function(){
+                if (p1Selected === null || p2Selected === null) {
+                     return;
+                 }
+                var defenseUp = (player2.defense * 2);
+                player2.defense = player2.defense + defenseUp;
+                console.log("You have applied a " + dot + " to the enemy.")
+                document.getElementById("p2_health").innerHTML = player2.health;
+                checkHealthPlayer2(player2);
+                checkHealthPlayer1(player1);
+                
+             });
+         
+             var allyArray = [lance, elizabeth, merrick, balfor];
+             var enemyArray = [greyson, talia, fenwright, duval];
+         
+             for (var i = 0; i < allyArray.length; i++) {
+                 $("#nameA" + i).html(allyArray[i].name);
+                 document.getElementById("nameA" + i).innerHTML = allyArray[i].name;
+                 document.getElementById("healthA" + i).innerHTML = allyArray[i].health;
+                 document.getElementById("attackA" + i).innerHTML = allyArray[i].attack;
+                 document.getElementById("defenseA" + i).innerHTML = allyArray[i].defense;
+                 
+             }
+         
+             for (var i = 0; i < enemyArray.length; i++) {
+                 $("#nameE" + i).html(enemyArray[i].name);
+                 document.getElementById("nameE" + i).innerHTML = enemyArray[i].name;
+                 document.getElementById("healthE" + i).innerHTML = enemyArray[i].health;
+                 document.getElementById("attackE" + i).innerHTML = enemyArray[i].attack;
+                 document.getElementById("defenseE" + i).innerHTML = enemyArray[i].defense;
+             }
+         });
+         
+      </script>
+   </body>
+</html>
