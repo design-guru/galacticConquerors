@@ -440,6 +440,8 @@
 
          var p1Selected = null;
          var p2Selected = null;
+
+         var p2pawnsAlive = 4;
          
          mainAttack = player1.attack;
          boost = (player1.attack * 2);
@@ -448,13 +450,20 @@
          $(document).ready(function() {
         
              function setPlayer1(x) {
+                 if (p1Selected !== null) {
+                 alert("So many heroes...so many choices, now stay with one please!");
+                 return;
+                 }
+
                  player1 = allyArray[x];
                  p1Selected = x;
+
                  alert("You have selected " + player1.name);
                  document.getElementById("p1_name").innerHTML = player1.name;
                  document.getElementById("p1_health").innerHTML = "Health: " + player1.health;
                  document.getElementById("p1_attack").innerHTML = "Attack: " + player1.attack;
                  document.getElementById("p1_defense").innerHTML = "Defense: " + player1.defense;
+
              }
              
              function checkHealthPlayer1(pawn) {
@@ -477,39 +486,59 @@
                         var element =  document.getElementById(pawn.id);
                         $(element).hide();
                         p2Selected = null;
+                        p2pawnsAlive--;
+                        console.log(p2pawnsAlive);
+                        console.log("a pawn has died!");
                         document.getElementById("p2_health").innerHTML = "Dead";
                         alert("You have slain " + player2.name + ".");
+                        console.log(pawn);
+                    } if (p2pawnsAlive <= 0) {
+                        alert("You have WON THE BATTLE HERO!");
                     }
-                }
              }
-         
+         }
              // pick your player (which will store those values in a var player1)
              $("#ally0").click(function() {
                  setPlayer1(0);
-                 console.log(player1);
          
                  document.getElementById("ability0").innerHTML = player1.ability0Name;
-         
                  document.getElementById("ability1").innerHTML = player1.ability1Name;
-         
                  document.getElementById("ability2").innerHTML = player1.ability2Name;
-
-                 document.getElementById("ability3").innerHTML = player1.ability3Name;  
+                 document.getElementById("ability3").innerHTML = player1.ability3Name; 
              });
          
              $("#ally1").click(function() {
                  setPlayer1(1);
+
+                 document.getElementById("ability0").innerHTML = player1.ability0Name;
+                 document.getElementById("ability1").innerHTML = player1.ability1Name;
+                 document.getElementById("ability2").innerHTML = player1.ability2Name;
+                 document.getElementById("ability3").innerHTML = player1.ability3Name;
              });
          
              $("#ally2").click(function() {
                  setPlayer1(2);
+
+                 document.getElementById("ability0").innerHTML = player1.ability0Name;
+                 document.getElementById("ability1").innerHTML = player1.ability1Name;
+                 document.getElementById("ability2").innerHTML = player1.ability2Name;
+                 document.getElementById("ability3").innerHTML = player1.ability3Name;
              });
          
              $("#ally3").click(function() {
                  setPlayer1(3);
+
+                 document.getElementById("ability0").innerHTML = player1.ability0Name;
+                 document.getElementById("ability1").innerHTML = player1.ability1Name;
+                 document.getElementById("ability2").innerHTML = player1.ability2Name;
+                 document.getElementById("ability3").innerHTML = player1.ability3Name;
              });
          
              function setPlayer2(x) {
+                 if (p2Selected !== null) {
+                 alert("Whoa space cowboy, one enemy at a time!");
+                 return;
+                 }
                  player2 = enemyArray[x];
                  p2Selected = x;
                  alert("You have selected " + player2.name);
