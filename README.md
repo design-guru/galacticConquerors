@@ -8,3 +8,5 @@ How to play?
 3. battle begins now that each side has been decided
 4. use your abilities below the play field to defeat your enemy
 5. once that enemy is defeated, continue defeating the rest of the blue units until all are defeated
+
+START PLAYING NOW --- CLICK LINK TO BEGIN https://kalindrov.github.io/galacticConquerors/
