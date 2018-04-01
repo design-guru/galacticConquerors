@@ -1,6 +1,6 @@
-# galacticConquerors
+# Galactic Conquerors
 
-This app uses javascript/jquery to create a 1v1 RPG.
+This app uses javascript/jquery to create a 1v1 RPG with characters/abilities stored in object driven programming.
 
 How to play?
 1. select your hero (any purple unit) on the play field
